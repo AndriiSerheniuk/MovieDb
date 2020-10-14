@@ -1,4 +1,4 @@
-package com.example.moviedb.utils
+package com.example.presentation.utils
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel

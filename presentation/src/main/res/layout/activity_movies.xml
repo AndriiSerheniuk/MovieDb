@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.moviedb.ui.movieList.MoviesViewModel" />
+            type="com.example.presentation.movieList.MoviesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.movieList.MoviesActivity">
+        tools:context="com.example.presentation.movieList.MoviesActivity">
 
         <TextView
             android:layout_width="wrap_content"

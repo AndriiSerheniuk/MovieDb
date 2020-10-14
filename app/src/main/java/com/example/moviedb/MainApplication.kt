@@ -1,4 +1,4 @@
-package com.example
+package com.example.moviedb
 
 import com.example.moviedb.di.DaggerAppComponent
 import dagger.android.AndroidInjector

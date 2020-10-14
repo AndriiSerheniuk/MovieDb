@@ -1,6 +1,6 @@
 package com.example.moviedb.di
 
-import com.example.MainApplication
+import com.example.moviedb.MainApplication
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -11,7 +11,8 @@ import dagger.android.support.AndroidSupportInjectionModule
         AndroidSupportInjectionModule::class,
         ActivityBindingModule::class,
         AppModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        RepositoryModule::class
     ]
 )
 interface AppComponent : AndroidInjector<MainApplication> {

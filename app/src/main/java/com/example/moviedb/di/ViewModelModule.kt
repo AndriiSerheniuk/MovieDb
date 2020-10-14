@@ -1,7 +1,7 @@
 package com.example.moviedb.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.ViewModelFactory
+import com.example.presentation.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 

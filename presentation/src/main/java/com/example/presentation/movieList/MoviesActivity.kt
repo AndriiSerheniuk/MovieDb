@@ -1,11 +1,11 @@
-package com.example.moviedb.ui.movieList
+package com.example.presentation.movieList
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.moviedb.R
-import com.example.moviedb.databinding.ActivityMoviesBinding
-import com.example.moviedb.utils.provideViewModel
+import com.example.presentation.R
+import com.example.presentation.databinding.ActivityMoviesBinding
+import com.example.presentation.utils.provideViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 

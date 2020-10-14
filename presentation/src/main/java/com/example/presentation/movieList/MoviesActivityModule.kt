@@ -1,7 +1,7 @@
-package com.example.moviedb.ui.movieList
+package com.example.presentation.movieList
 
 import androidx.lifecycle.ViewModel
-import com.example.ViewModelKey
+import com.example.presentation.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -11,6 +11,6 @@ abstract class MoviesActivityModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MoviesViewModel::class)
+    @com.example.presentation.ViewModelKey(MoviesViewModel::class)
     internal abstract fun bindMoviesViewModel(viewModel: MoviesViewModel): ViewModel
 }

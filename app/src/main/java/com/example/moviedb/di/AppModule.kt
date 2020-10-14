@@ -1,7 +1,7 @@
 package com.example.moviedb.di
 
 import android.content.Context
-import com.example.MainApplication
+import com.example.moviedb.MainApplication
 import dagger.Module
 import dagger.Provides
 

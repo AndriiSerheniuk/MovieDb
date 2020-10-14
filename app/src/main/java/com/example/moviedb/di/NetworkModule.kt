@@ -1,5 +1,6 @@
 package com.example.moviedb.di
 
+import com.example.data.movies.remote.MovieDbService
 import com.example.moviedb.BuildConfig.DEBUG
 import dagger.Module
 import dagger.Provides
@@ -32,5 +33,10 @@ class NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    fun provideMovieDbService(retrofit: Retrofit): MovieDbService {
+        return retrofit.create(MovieDbService::class.java)
     }
 }
