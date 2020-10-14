@@ -11,6 +11,6 @@ abstract class MoviesActivityModule {
 
     @Binds
     @IntoMap
-    @com.example.presentation.ViewModelKey(MoviesViewModel::class)
+    @ViewModelKey(MoviesViewModel::class)
     internal abstract fun bindMoviesViewModel(viewModel: MoviesViewModel): ViewModel
 }

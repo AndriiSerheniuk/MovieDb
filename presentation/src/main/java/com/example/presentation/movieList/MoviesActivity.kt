@@ -13,6 +13,7 @@ class MoviesActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     lateinit var viewModel: MoviesViewModel
     private lateinit var binding: ActivityMoviesBinding
 
@@ -25,5 +26,7 @@ class MoviesActivity : DaggerAppCompatActivity() {
             lifecycleOwner = this@MoviesActivity
             viewModel = this@MoviesActivity.viewModel
         }
+
+        viewModel.getPopularMovies()
     }
 }
