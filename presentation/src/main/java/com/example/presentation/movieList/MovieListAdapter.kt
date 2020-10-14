@@ -2,33 +2,36 @@ package com.example.presentation.movieList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domain.movieList.entity.MovieItem
 import com.example.presentation.databinding.ItemMovieBinding
+import com.example.presentation.utils.Constants.MOVIES_BASE_POSTER_URL
 
-class MovieListAdapter : RecyclerView.Adapter<MovieViewHolder>() {
-    var movies = ArrayList<MovieItem>()
-
+class MovieListAdapter : PagedListAdapter<MovieItem, MovieViewHolder>(MOVIE_COMPARATOR) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-
         return ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false).run {
             MovieViewHolder(this)
         }
     }
 
-    override fun getItemCount() = movies.size
-
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movies[holder.adapterPosition])
+        getItem(holder.adapterPosition)?.let {
+            holder.bind(it)
+        }
     }
 
-    fun submitList(items: List<MovieItem>) {
-        movies.apply {
-            clear()
-            addAll(items)
+    companion object {
+        private val MOVIE_COMPARATOR = object : DiffUtil.ItemCallback<MovieItem>() {
+
+            override fun areItemsTheSame(oldItem: MovieItem, newItem: MovieItem) =
+                oldItem == newItem
+
+            override fun areContentsTheSame(oldItem: MovieItem, newItem: MovieItem) =
+                oldItem.title == newItem.title && oldItem.voteAverage == newItem.voteAverage
         }
-        notifyDataSetChanged()
     }
 }
 
@@ -37,7 +40,7 @@ class MovieViewHolder(private val binding: ItemMovieBinding) :
     fun bind(movieItem: MovieItem) {
         binding.title.text = movieItem.title
 
-        val fullPosterPath = "http://image.tmdb.org/t/p/w500/" + movieItem.posterPath
+        val fullPosterPath = MOVIES_BASE_POSTER_URL + movieItem.posterPath
         Glide.with(itemView.context).load(fullPosterPath).into(binding.imagePoster)
     }
 }

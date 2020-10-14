@@ -22,6 +22,6 @@
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
-            app:movies="@{viewModel.movieItems}"/>
+            app:movies="@{viewModel.moviePagedList}"/>
     </LinearLayout>
 </layout>

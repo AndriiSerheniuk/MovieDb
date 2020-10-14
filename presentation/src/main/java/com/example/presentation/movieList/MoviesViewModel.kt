@@ -1,31 +1,18 @@
 package com.example.presentation.movieList
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.domain.movieList.entity.MovieItem
 import com.example.domain.movieList.repository.MovieRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
-class MoviesViewModel @Inject constructor(private val movieRepository: MovieRepository) :
-    ViewModel() {
-    private val compositeDisposable = CompositeDisposable()
+class MoviesViewModel @Inject constructor(movieRepository: MovieRepository) : ViewModel() {
 
-    val movieItems = MutableLiveData<List<MovieItem>>(listOf())
-
-    fun getPopularMovies() {
-        movieRepository.getPopularMovies(1)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                movieItems.value = it
-            }, {
-            }).addTo(compositeDisposable)
-    }
+    private var sourceListing = MutableLiveData(MoviesDataSourceFactory.create(movieRepository))
+    var moviePagedList = Transformations.map(sourceListing) { it.pagedList }
 
     override fun onCleared() {
+        sourceListing.value?.clear?.invoke()
         super.onCleared()
-        compositeDisposable.clear()
     }
 }

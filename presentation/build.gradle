@@ -56,7 +56,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "com.github.bumptech.glide:glide:$glibe_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glibe_version"
-
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     implementation "androidx.cardview:cardview:1.0.0"
 
     testImplementation 'junit:junit:4.12'

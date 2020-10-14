@@ -36,6 +36,5 @@ class MoviesActivity : DaggerAppCompatActivity() {
             viewModel = this@MoviesActivity.viewModel
         }
 
-        viewModel.getPopularMovies()
     }
 }
