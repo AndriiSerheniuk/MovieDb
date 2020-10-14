@@ -53,7 +53,11 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin_version"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "com.github.bumptech.glide:glide:$glibe_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glibe_version"
+
+    implementation "androidx.cardview:cardview:1.0.0"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
