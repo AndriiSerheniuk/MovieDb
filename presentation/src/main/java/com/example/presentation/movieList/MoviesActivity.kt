@@ -2,11 +2,13 @@ package com.example.presentation.movieList
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMoviesBinding
+import com.example.presentation.utils.EventObserver
 import com.example.presentation.utils.provideViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -36,5 +38,11 @@ class MoviesActivity : DaggerAppCompatActivity() {
             viewModel = this@MoviesActivity.viewModel
         }
 
+        viewModel.errorLoading.observe(this, EventObserver {
+            Toast.makeText(this, it.message ?: "Error has happened", Toast.LENGTH_SHORT).show()
+        })
+
+        if (savedInstanceState == null)
+            viewModel.startListenNetworkConnection(applicationContext)
     }
 }

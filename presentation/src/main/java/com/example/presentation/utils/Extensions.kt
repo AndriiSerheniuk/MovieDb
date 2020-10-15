@@ -6,5 +6,5 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 
 inline fun <reified VM : ViewModel> FragmentActivity.provideViewModel(provider: ViewModelProvider.Factory): VM {
-    return ViewModelProviders.of(this, provider).get(VM::class.java)
+    return ViewModelProvider(this, provider).get(VM::class.java)
 }

@@ -10,6 +10,7 @@ import androidx.paging.toLiveData
 import com.example.domain.movieList.entity.MovieItem
 import com.example.domain.movieList.repository.MovieRepository
 import com.example.presentation.utils.Constants
+import com.example.presentation.utils.Event
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -37,6 +38,9 @@ class MoviesDataSourceFactory private constructor(private val movieRepository: M
 
             return Listing(
                 livePagedList,
+                loading = Transformations.switchMap(sourceFactory.sourceLiveData) {
+                    it.loading
+                },
 
                 errorState = Transformations.switchMap(sourceFactory.sourceLiveData) {
                     it.errorState
@@ -63,10 +67,14 @@ class MoviesDataSourceFactory private constructor(private val movieRepository: M
 /**
  * A data source for loading new items
  */
-class PositionalMovieDataSource(private val movieRepository: MovieRepository, private val compositeDisposable: CompositeDisposable) : PositionalDataSource<MovieItem>() {
+class PositionalMovieDataSource(
+    private val movieRepository: MovieRepository,
+    private val compositeDisposable: CompositeDisposable
+) : PositionalDataSource<MovieItem>() {
     private var page = 1
 
-    val errorState = MutableLiveData<Throwable>()
+    val errorState = MutableLiveData<Event<Throwable>>()
+    val loading = MutableLiveData<Boolean>()
 
     /**
      * first loading of items when page = 1
@@ -74,11 +82,13 @@ class PositionalMovieDataSource(private val movieRepository: MovieRepository, pr
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<MovieItem>) {
         page = 1
         movieRepository.getPopularMovies(page)
+            .doOnSubscribe { loading.postValue(true) }
+            .doFinally { loading.postValue(false) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 callback.onResult(it, 0)
             }, {
-                errorState.postValue(it)
+                errorState.postValue(Event(it))
             }).addTo(compositeDisposable)
     }
 
@@ -90,7 +100,7 @@ class PositionalMovieDataSource(private val movieRepository: MovieRepository, pr
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 callback.onResult(it)
-            }, { errorState.postValue(it) })
+            }, { errorState.postValue(Event(it)) })
             .addTo(compositeDisposable)
     }
 
@@ -109,8 +119,10 @@ class PositionalMovieDataSource(private val movieRepository: MovieRepository, pr
 data class Listing<T>(
     // the LiveData of paged lists for the UI to observe
     val pagedList: LiveData<PagedList<T>>,
+    // represents the loading status to show to the user
+    val loading: LiveData<Boolean>,
     // represents the error status to show to the user
-    val errorState: LiveData<Throwable>,
-    // refreshes the whole data and fetches it from scratch.
+    val errorState: LiveData<Event<Throwable>>,
+    // clear before destroying observer
     val clear: () -> Unit
 )

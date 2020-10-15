@@ -12,6 +12,7 @@ buildscript {
         javaxInject_version = '1'
         glibe_version = '4.11.0'
         paging_version ='2.1.2'
+        reactiveNetwork_version ='3.0.8'
     }
 
     repositories {

@@ -31,6 +31,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -41,6 +45,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation "androidx.cardview:cardview:1.0.0"
 
     // Dagger
     implementation "com.google.dagger:dagger-android:$dagger_version"
@@ -57,7 +62,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glibe_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glibe_version"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
-    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "com.github.pwittchen:reactivenetwork-rx2:$reactiveNetwork_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
