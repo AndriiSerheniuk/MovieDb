@@ -23,7 +23,10 @@ fun bindMovieList(recyclerView: RecyclerView, movieList: PagedList<MovieItem>?) 
     movieList ?: return
 
     if (recyclerView.adapter == null)
-        recyclerView.adapter = MovieListAdapter()
+        recyclerView.adapter = MovieListAdapter().apply {
+            stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
+
 
     (recyclerView.adapter as MovieListAdapter).submitList(movieList)
 }

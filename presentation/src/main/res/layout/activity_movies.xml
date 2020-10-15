@@ -28,7 +28,7 @@
                 app:goneUnless="@{!viewModel.noConnection}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:movies="@{viewModel.moviePagedList}"
-                app:spanCount="2" />
+                app:spanCount="@integer/movie_list_span_count" />
 
             <TextView
                 android:layout_width="match_parent"
