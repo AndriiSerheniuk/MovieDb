@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.presentation.movieList.MovieListViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movieRecyclerList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            app:goneUnless="@{!viewModel.noConnection}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:movies="@{viewModel.moviePagedList}"
+            app:spanCount="@integer/movie_list_span_count" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_internet_connection"
+            android:textColor="@color/errorColor"
+            android:textSize="@dimen/no_connection_text_size"
+            app:goneUnless="@{viewModel.noConnection}" />
+    </LinearLayout>
+</layout>

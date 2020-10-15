@@ -14,11 +14,11 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MoviesViewModel @Inject constructor(private val movieRepository: MovieRepository): ViewModel() {
+class MovieListViewModel @Inject constructor(private val movieRepository: MovieRepository): ViewModel() {
 
     private var sourceListing = MutableLiveData<Listing<MovieItem>>()
     var moviePagedList = Transformations.map(sourceListing) { it.pagedList }
-    var loading = Transformations.map(sourceListing) { it.loading }
+    var loading = Transformations.switchMap(sourceListing) { it.loading }
     var errorLoading = Transformations.switchMap(sourceListing) { it.errorState }
 
     var noConnection = MutableLiveData<Boolean>()
